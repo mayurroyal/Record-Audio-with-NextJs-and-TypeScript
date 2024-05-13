@@ -39,6 +39,11 @@ const useAudioRecorder = () => {
 				setMediaRecorderState(event.type);
 			});
 		})
+
+		addEventListener("devicechange", (event: Event) => {
+			log(`Device change event came`);
+		});
+
 	}
 
 	function clearHandlers() {
@@ -61,10 +66,9 @@ const useAudioRecorder = () => {
 	};
 
 	const startRecording = async () => {
-
 		let stream = null;
 
-		log(`Start Recording event came`)
+		log(`Start recording method called`)
 
 		try {
 			stream = await navigator.mediaDevices.getUserMedia({ audio: true });

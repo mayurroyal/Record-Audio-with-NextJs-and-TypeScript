@@ -1,7 +1,7 @@
 "use client";
 
 import useAudioRecorder from "@/hooks/useAudioRecorder";
-import { Box, Button, Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Box, Button, Card, Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
@@ -58,47 +58,58 @@ export default function Home() {
 
 	return (
 		<Box sx={{ p: 5 }}>
-			<Grid container>
+			<Grid container spacing={2}>
 				<Grid sm={6} item>
-					<Typography sx={{ px: 1, py: 3 }}>Current State : {mediaRecorderState}</Typography>
+					<Card sx={{ p: 2, border: '1px solid #ddd' }}>
+						<Box sx={{ px: 1, py: 3, display: 'flex' }}>
+							<Box>Current State :</Box>
+							<Box sx={{ textTransform: 'capitalize', pl: 1, fontWeight: 500 }} >{mediaRecorderState}</Box>
+						</Box>
 
-					<Box sx={{ py: 3 }}>
-						<audio ref={audioRef} controls>
-							<source src={audioData} type={audioType} />
-						</audio>
-					</Box>
+						<Box sx={{ py: 3 }}>
+							<audio ref={audioRef} controls>
+								<source src={audioData} type={audioType} />
+							</audio>
+						</Box>
 
-					<Box sx={{ py: 3 }}>
-						<Button
-							onClick={() => {
-								startRecording();
-							}}
-						>
-							Start Recording
-						</Button>
-						<Button
-							onClick={() => {
-								stopRecodingAndPlay()
-							}}
-						>
-							Stop Recording
-						</Button>
+						<Box sx={{ py: 3 }}>
+							<Button
+								onClick={() => {
+									startRecording();
+								}}
+							>
+								Start Recording
+							</Button>
+							<Button
+								onClick={() => {
+									stopRecodingAndPlay()
+								}}
+							>
+								Stop Recording
+							</Button>
 
-					</Box>
+						</Box>
+					</Card>
 				</Grid>
 				<Grid sm={6} item>
-					<List>
-						{dataLogsAR.map((dl, index) => (
-							<ListItem key={index}>
-								<ListItemText
-									primary={<Box sx={{ textTransform: 'capitalize' }}>{dl.data.replaceAll('"', '')}</Box>}
-									secondary={new Date(Number(dl.timestamp)).toString()}
-								/>
-							</ListItem>
-						))}
-					</List>
+					<Card sx={{ p: 2, border: '1px solid #ddd' }}>
+						<Box sx={{ px: 1, py: 3, display: 'flex' }}>
+							<Box>Logs :</Box>
+						</Box>
+						<List>
+							{dataLogsAR.map((dl, index) => (
+								<ListItem sx={{ pt: 0 }} key={index}>
+									<ListItemText
+										sx={{ my: 0 }}
+										primary={<Box sx={{ textTransform: 'capitalize' }}>{dl.data.replaceAll('"', '')}</Box>}
+										secondary={new Date(Number(dl.timestamp)).toString().split("GMT")[0]}
+									/>
+								</ListItem>
+							))}
+						</List>
+					</Card>
 				</Grid>
-			</Grid >
+			</Grid>
 		</Box>
 	);
 }
