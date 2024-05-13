@@ -11,6 +11,13 @@ export default function Home() {
 
 	const audioRef: any = useRef(null)
 
+	/*
+		TODO: 
+			1. diable immediate multiple click on Start / Stop button 
+			2. show errors
+			3. upload recorded files in chunks 
+	*/
+
 	useEffect(() => {
 		if (audioBlobs.length === 0) return
 
